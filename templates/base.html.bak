@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ElCambur -{% endblock %}</title>
+	<link rel="shortcut icon" type="images/png" href="{% static 'cambur_fav' %}"/>
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+  </head>
+  <body>
+     <div class="topnav">
+           <a class="welcome" href="{% url 'index' %}">Accueil</a>
+		       {% if user.is_authenticated %}
+                   <a class="connect">Bonjour {{ user.username }} !</a>
+                   <a class="connect" href="{% url 'logout' %}">Deconnexion</a>
+               {% else %}
+                   <a class="connect" href="{% url 'login' %}">Se connecter</a>
+               {% endif %}
+      </div>
+      <div class="main">
+          <div class="main-banner">
+		  </div>
+		  <nav class="sticky-nav">
+              <ul>
+                   {% if categories %}
+                      {% for Category in categories %}
+                          <li><a href="{{ Category.get_absolute_url }}">{{ Category.name|upper }}</a></li>
+                      {% endfor %}
+                  {% else %}
+                      <p>No categories.</p>
+                  {% endif %}
+              </ul>
+		  </nav>
+          {% block content %}
+          {% endblock %} 
+	      <div id="dashboard">
+               <div class="dashboard-left">
+                    <h4>LeCambur</h4>
+                    <p>LeCambur est un site d'information qui traite l'actualité.</p>
+               </div>
+               <div class="dashboard-middle">
+                   <ul class="legal">
+                       <li><a href="{% url 'aboutus' %}">A propos</a></li>
+                       <li><a href="{% url 'contact' %}">Contact</a></li>
+                       <li><a href="#">CGU</a></li>
+                       <li><a href="#">Mentions légales</a></li>
+                   </ul>
+              </div>
+          </div>
+          <div id="footer">
+                <div class="footer-title">
+                    <p>LeCambur© Copyright 2022.</p>
+                </div>
+          </div>
+	   </div>
+  </body>
+</html>

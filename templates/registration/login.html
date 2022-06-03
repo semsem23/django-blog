@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="fr">
+   <head>
+       <meta charset="utf-8">
+       <title>{% block title %}ElCambur - Connectez-vous{% endblock %}</title>
+   </head>
+   <body> {% block content %}
+       <div class="login" style="width:50%;">
+            <h2>Connectez-vous</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="loginbtn" type="submit">Je me connecte</button>
+				<a class="pswl" href="{% url 'password_reset' %}">Mot de passe oublié ?</a>
+            </form>
+			<hr style="width:100%;text-align:left;margin-left:0">
+			<p>Pas encore de compte ? <a href="{% url 'signup' %}">Inscrivez-vous</a></p>
+			
+	   </div>
+   </body> {% endblock %}
+</html>

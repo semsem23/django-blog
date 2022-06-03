@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="fr">
+   <head>
+       <meta charset="utf-8">
+       <title>{% block title %}ElCambur - Inscrivez-vous{% endblock %}</title>
+   </head>
+   <body> {% block content %}
+       <div class="signup" style="width:50%;" >
+            <h2>Inscrivez-vous</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="signupbtn" type="submit">Je m'inscris</button>
+            </form>
+	   </div>
+   </body> {% endblock %}
+</html>

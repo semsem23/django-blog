@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    {% block title %}ElCambur - Contactez-nous{% endblock %}
+  </head>
+  <body> {% block content %}
+        <div class="login" style="width:50%;">
+            <h2>Contactez-vous</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="loginbtn" type="submit">J'envoie</button>
+            </form>	
+	   </div>
+   </body> {% endblock %}
+</html>

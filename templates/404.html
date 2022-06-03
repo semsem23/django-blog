@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}ElCambur - Page erreur{% endblock %}</title>
+  </head>
+  <body> {% block content %}
+       <h1>Page not Found</h1>
+  </body> {% endblock %}
+</html>

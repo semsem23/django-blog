@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="fr">
+   <head>
+       <meta charset="utf-8">
+       <title>{% block title %}{% endblock %}</title>
+   </head>
+   <body> {% block content %}
+       <div class="cat-main-left">
+           <ul class="breadcrumb">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li>&rsaquo;</li>
+           </ul>
+           <div class="cat-main-post">
+                <h2 class="cat-main-title">{{ post.title }}</h2>
+                <p class="cat-main-date"> Publié le {{ post.publishedDate }} par {{ post.author.firstName }}
+				{% if author %}
+		           {{ post.author.lastName }}
+		        {% else %}
+                   {{ post.author.lastName|default:"" }}</p>
+                {% endif %}
+                <img src="{{ post.image.url }}" alt="" style="height:400px;width:100%;">
+                <p class="cat-main-post-description">{{ post.content|safe }}</p>
+		   </div>
+		   <hr style="width:100%;text-align:left;margin-left:0">
+	       <div class="com-cat-main-left">
+	           <h3>Commentaire ({{ comments.count }})</h3>
+	           {% if user.is_authenticated %}
+	               <form method="post" style="margin-top: 1.3em;">
+				       <button type="submit" class="cbtn">Ecrire un commentaire</button>
+                       {{ form.as_p }}
+                       {% csrf_token %}
+                   </form>
+	           {% else %}
+	               <p>Pour rédiger un commentaire sur cet article, <a href="{% url 'login' %}">identifiez vous</a></p>
+	               <p>Si vous n'avez pas encore de compte <a href="{% url 'signup' %}">inscrivez vous</a></p>
+               {% endif %}
+			   <br>
+               {% for comment in comments %}
+                    <p style="font-size:12px;"><span style="font-weight:bold;">{{ comment.user.username }}</span> le {{ comment.createdDate }}</p>
+                    <p style="font-size:16px;">{{ comment.content|linebreaks  }}</p>
+				    <hr style="width:100%;text-align:left;margin-left:0;">
+               {% endfor %} 
+           </div>	
+       </div>		   
+   </body> {% endblock %}
+</html>
